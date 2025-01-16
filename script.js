@@ -1,6 +1,29 @@
 document.addEventListener("DOMContentLoaded", function() {
     const gameSpace = document.getElementById('gameSpace');
-    const max = 3
+
+    // Game Variables
+    const max = 4 // Dimension of the game board Max x Max
+    var currentPlayer = 0; // Player 1 or 2
+
+    // Function to claim a line
+    function claim(){
+        if (this.className == 'lineH'){
+            if (currentPlayer % 2 == 0){
+                this.className = 'lineHP1';
+            } else {
+                this.className = 'lineHP2';
+            }
+        } else if (this.className == 'lineV'){
+            if (currentPlayer % 2 == 0){
+                this.className = 'lineVP1';
+            } else {
+                this.className = 'lineVP2';
+            }
+        } else {
+            return;
+        }   
+        currentPlayer++;
+    }
 
     // To generate each row of the game board
     for (let j = 0; j < max; j++) { 
@@ -8,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
         row.className = 'flex-container';
 
             // To generate each tile of the row
-            for (let i = 0; i < 3; i++) { 
+            for (let i = 0; i < max; i++) { 
                 const tile = document.createElement('div'); // Div for each tile which has 3 sub rows
                 tile.className = 'tile';
 
@@ -21,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 const lineH1 = document.createElement('div');
                 lineH1.className = 'lineH';
+                lineH1.addEventListener('click', claim)
 
                 flexContainer1.appendChild(dot1);
                 flexContainer1.appendChild(lineH1);
@@ -31,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 const lineV = document.createElement('div');
                 lineV.className = 'lineV';
+                lineV.addEventListener('click', claim)
 
                 const box = document.createElement('div');
                 box.className = 'box';
@@ -46,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     const lineV2 = document.createElement('div');
                     lineV2.className = 'lineV';
+                    lineV2.addEventListener('click', claim)
                     flexContainer2.appendChild(lineV2);
                 }
 
@@ -62,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
                     const lineH2 = document.createElement('div');
                     lineH2.className = 'lineH';
+                    lineH2.addEventListener('click', claim)
     
                     flexContainer3.appendChild(dot2);
                     flexContainer3.appendChild(lineH2);
