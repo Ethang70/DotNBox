@@ -1,5 +1,5 @@
 // Game Variables
-const max = 4 // Dimension of the game board Max x Max
+const max = 6 // Dimension of the game board Max x Max
 let maxTurns = (max * (max + 1)*2); // Max number of turns possible
 let turn = 0; // Number of turns taken
 let currentPlayer = 0; // Player 1 or 2
