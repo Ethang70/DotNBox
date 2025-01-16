@@ -5,30 +5,20 @@ let turn = 0; // Number of turns taken
 let currentPlayer = 0; // Player 1 or 2
 let player1Score = 0;
 let player2Score = 0;
-let boxCompleted = false
+let boxCompleted = false // Flag to tell if box has been completed, so not to change turns
 
+// Function to check all surrounding lines of a box
+// If all lines are claimed, fill box with player colour
 function checkBox(row, col) { 
-    // Check if all lines of a box is claimed
+    // Grab all lines surrounding box
     var lineV1 = document.getElementById('V' + row + '-' + col);
     var lineV2 = document.getElementById('V' + row + '-' + (+col + 1));
     var lineH1 = document.getElementById('H' + row + '-' + col);
     var lineH2 = document.getElementById('H' + (+row + 1) + '-' + col);
-    var count = 0;
     
-    if (!(lineV1.className == 'lineV')){
-        count++;
-    }
-    if (!(lineV2.className == 'lineV')){
-        count++;
-    }
-    if (!(lineH1.className == 'lineH')){
-        count++;
-    }
-    if (!(lineH2.className == 'lineH')){
-        count++;
-    }
-    console.log(row + col + "c: " + count);
-    if (count == 4){
+    // Check if borders of box are claimed
+    if (!(lineV1.className == 'lineV') && !(lineV2.className == 'lineV') && !(lineH1.className == 'lineH') && !(lineH2.className == 'lineH')){
+        // Grab box element and change colour depending on player
         var box = document.getElementById('B' + row + '-' + col);
         if (currentPlayer % 2 == 0){
             box.className = 'boxP1';
@@ -42,6 +32,8 @@ function checkBox(row, col) {
 }
 
 // Function to claim a line
+// Which is run when a line is clicked,
+// Changes line colour depending on player if unclaimed
 function claim(){
     // Determine if line is Horizontal or Vertical
     row = this.dataset.row
@@ -53,6 +45,8 @@ function claim(){
         } else {
             this.className = 'lineHP2';
         }
+
+        // Check if boxes touching the line are completed
         if(row < max){
         checkBox(row, col);
         }
@@ -66,6 +60,7 @@ function claim(){
             this.className = 'lineVP2';
         }
 
+        // Check if boxes touching the line are completed
         if(col < max){
         checkBox(row, col);
         }
@@ -77,12 +72,15 @@ function claim(){
     }   
     turn++;
 
+    // If a box was completed then dont change player,
+    // else change player and reset completed flag
     if (boxCompleted == false){
         currentPlayer++;
     } else {
         boxCompleted = false;
     }
 
+    // Once max turns are reached, determine winner
     if (turn == maxTurns){
         if (player1Score > player2Score){
             alert('Player 1 wins! ' + player1Score + ' - ' + player2Score);
