@@ -15,19 +15,19 @@ function checkBox(row, col) {
     var lineH2 = document.getElementById('H' + (+row + 1) + '-' + col);
     var count = 0;
     
-    if (lineV1.className == 'lineVP1' || lineV1.className == 'lineVP2'){
+    if (!(lineV1.className == 'lineV')){
         count++;
     }
-    if (lineV2.className == 'lineVP1' || lineV2.className == 'lineVP2'){
+    if (!(lineV2.className == 'lineV')){
         count++;
     }
-    if (lineH1.className == 'lineHP1' || lineH1.className == 'lineHP2'){
+    if (!(lineH1.className == 'lineH')){
         count++;
     }
-    if (lineH2.className == 'lineHP1' || lineH2.className == 'lineHP2'){
+    if (!(lineH2.className == 'lineH')){
         count++;
     }
-
+    console.log(row + col + "c: " + count);
     if (count == 4){
         var box = document.getElementById('B' + row + '-' + col);
         if (currentPlayer % 2 == 0){
@@ -53,7 +53,7 @@ function claim(){
         } else {
             this.className = 'lineHP2';
         }
-        if(row < max - 1){
+        if(row < max){
         checkBox(row, col);
         }
         if(row > 0){
@@ -66,7 +66,7 @@ function claim(){
             this.className = 'lineVP2';
         }
 
-        if(col < max - 1){
+        if(col < max){
         checkBox(row, col);
         }
         if(col > 0){
